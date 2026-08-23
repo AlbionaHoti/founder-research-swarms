@@ -1,0 +1,479 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder Research Swarms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #FBFAF4;
+    --card: #FFFFFF;
+    --ink: #15140F;
+    --ink-2: #3B3930;
+    --mute: #6E6A58;
+    --rule: #DDD9C8;
+    --rule-soft: #ECE9DB;
+    --yellow: #FFD60A;
+    --yellow-ink: #15140F;
+    --mono-bg: #F4F2E8;
+    --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121210;
+      --card: #1A1A16;
+      --ink: #F1EEE2;
+      --ink-2: #CFCBBB;
+      --mute: #9E9A88;
+      --rule: #2E2D26;
+      --rule-soft: #23221D;
+      --yellow: #FFD60A;
+      --yellow-ink: #15140F;
+      --mono-bg: #20201A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121210;
+    --card: #1A1A16;
+    --ink: #F1EEE2;
+    --ink-2: #CFCBBB;
+    --mute: #9E9A88;
+    --rule: #2E2D26;
+    --rule-soft: #23221D;
+    --yellow: #FFD60A;
+    --yellow-ink: #15140F;
+    --mono-bg: #20201A;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 20px 96px;
+    display: grid;
+    gap: 28px;
+  }
+
+  /* ---------- masthead ---------- */
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .mast b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- slide ---------- */
+  .slide {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    padding: 40px 40px 36px;
+  }
+  .slide .n {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--mute);
+    border: 1px solid var(--rule);
+    padding: 2px 8px;
+    background: var(--ground);
+  }
+  .slide h1, .slide h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    text-wrap: balance;
+    line-height: 1.05;
+  }
+  .slide h1 { font-size: 56px; max-width: 14ch; }
+  .slide h2 { font-size: 40px; max-width: 16ch; }
+  .sub {
+    font-size: 18px;
+    color: var(--ink-2);
+    max-width: 46ch;
+    margin: 0 0 28px;
+    line-height: 1.4;
+  }
+  .sub mark, p mark {
+    background: var(--yellow);
+    color: var(--yellow-ink);
+    padding: 0 4px;
+  }
+  .lede {
+    font-size: 17px;
+    max-width: 62ch;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ---------- principle table ---------- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .tablewrap { overflow-x: auto; }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mute);
+    font-weight: 600;
+    padding: 0 12px 10px 0;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  tbody td {
+    vertical-align: top;
+    padding: 18px 14px 18px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.k {
+    width: 20%;
+    font-family: var(--display);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  td.k small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--mute);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  td.d { width: 30%; color: var(--ink-2); }
+  td.e { width: 50%; }
+  pre {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    background: var(--mono-bg);
+    border-left: 3px solid var(--yellow);
+    padding: 10px 12px;
+    color: var(--ink);
+  }
+  pre b { font-weight: 500; background: var(--yellow); color: var(--yellow-ink); padding: 0 2px; }
+  .why {
+    font-size: 12.5px;
+    color: var(--mute);
+    margin: 8px 0 0;
+  }
+
+  /* ---------- four-step strip ---------- */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1.5px solid var(--ink);
+    margin: 0 0 24px;
+  }
+  .steps > div {
+    padding: 16px 14px;
+    border-right: 1px solid var(--rule);
+  }
+  .steps > div:last-child { border-right: 0; }
+  .steps .t {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .steps .t span {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--yellow);
+    color: var(--yellow-ink);
+    padding: 1px 6px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .steps p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  /* ---------- Q&A bubbles ---------- */
+  .qa { display: grid; gap: 18px; }
+  .qa .q, .qa .a {
+    display: inline-block;
+    width: fit-content;
+    max-width: 60ch;
+    padding: 8px 12px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .qa .q {
+    background: var(--ink);
+    color: var(--ground);
+    font-family: var(--display);
+    font-size: 18px;
+  }
+  .qa .a {
+    background: var(--yellow);
+    color: var(--yellow-ink);
+    margin-left: 28px;
+  }
+  .qa .pair { display: grid; gap: 6px; }
+
+  /* ---------- full prompt ---------- */
+  .big pre { font-size: 13.5px; padding: 18px 20px; }
+
+  /* ---------- file tree ---------- */
+  .tree {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    background: var(--mono-bg);
+    padding: 14px 18px;
+    margin: 0 0 20px;
+    border-left: 3px solid var(--ink);
+  }
+  .tree i { font-style: normal; color: var(--mute); }
+
+  .sources {
+    font-size: 12.5px;
+    color: var(--mute);
+    line-height: 1.7;
+  }
+  .sources a { color: var(--ink-2); text-decoration-color: var(--rule); }
+  .sources a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+  .quote {
+    font-family: var(--display);
+    font-size: 24px;
+    line-height: 1.25;
+    max-width: 34ch;
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+  .quote cite { display: block; font-family: var(--sans); font-style: normal; font-size: 13px; color: var(--mute); margin-top: 8px; }
+
+  @media (max-width: 720px) {
+    .slide { padding: 28px 18px 24px; }
+    .slide h1 { font-size: 40px; }
+    .slide h2 { font-size: 31px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps > div:nth-child(2) { border-right: 0; }
+    .steps > div:nth-child(1), .steps > div:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    td.k { font-size: 17px; }
+    table { min-width: 640px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .slide { transition: border-color 160ms ease; }
+    .slide:hover { border-color: var(--ink); }
+  }
+</style>
+
+</head><body>
+<div class="wrap">
+
+  <div class="mast">
+    <span><b>Research swarms</b> for founders</span>
+    <span>one question in · one markdown file out</span>
+  </div>
+
+  <!-- 1 -->
+  <section class="slide">
+    <span class="n">1 / 8</span>
+    <h1>Ask the question once. Let ten agents answer it.</h1>
+    <p class="sub">A research swarm splits one founder question into pieces, sends an agent after each piece, lets a skeptic try to kill every claim, and writes what survives into <mark>one markdown file you own</mark>.</p>
+    <p class="lede">You do not need a harness, a Python repo, or a vector database. You need a good question, three prompts, and a folder. The rest of this page is the questions worth asking, the prompts to paste, and the one rule that keeps the pile of files useful.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <span class="n">2 / 8</span>
+    <h2>Four moves, every time</h2>
+    <p class="sub">The same shape whether you run it in Claude Code, Codex, or four chat tabs.</p>
+    <div class="steps">
+      <div><div class="t"><span>A</span>Split</div><p>One question becomes 4 to 8 sub-questions that, answered together, answer the whole thing.</p></div>
+      <div><div class="t"><span>B</span>Fan out</div><p>One agent per sub-question. Primary sources only: docs, papers, founder posts, filings, forum threads. Every claim carries a URL and a quote.</p></div>
+      <div><div class="t"><span>C</span>Attack</div><p>A separate skeptic agent tries to refute every claim. Keep, revise, or drop. It may not skip a claim quietly.</p></div>
+      <div><div class="t"><span>D</span>File</div><p>One markdown file: surviving claims with sources, dropped claims with reasons, and a last section titled "What this cannot tell you."</p></div>
+    </div>
+    <p class="lede">The skeptic is the part most people skip, and it is the part that makes the output worth acting on. One agent grading its own homework is a summary. Two agents disagreeing on the record is research.</p>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <span class="n">3 / 8</span>
+    <h2>Before you build</h2>
+    <p class="sub">Four questions that kill or confirm an idea before a line of code. Replace the <mark>bracketed</mark> parts.</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Ask the swarm</th><th>Paste this</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Idea<small>demand exists?</small></td>
+          <td class="d">Who already pays to make this pain go away, and with what?</td>
+          <td class="e"><pre>Find every way people currently solve <b>[pain]</b> without a dedicated product: spreadsheets, freelancers, consultants, Notion templates, Reddit workarounds. For each: what it costs them in money or hours, and a link to one person complaining about it. Rank by money already being spent.</pre><p class="why">Money already moving is the only demand signal you can trust before a product exists.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Customer<small>their words</small></td>
+          <td class="d">Where do my first 100 users already gather, and what exact words do they use?</td>
+          <td class="e"><pre>List 15 places where <b>[ICP]</b> talk about <b>[pain]</b>: subreddits, Discords, Slack groups, newsletters, YouTube channels. For each: size, a verbatim quote of someone describing the pain, and the phrase they use for it. Their words, not mine.</pre><p class="why">Your landing page is already written in those quotes.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Graveyard<small>who died of what</small></td>
+          <td class="d">What did the last five companies that tried this die of?</td>
+          <td class="e"><pre>Find 5 dead or stalled products in <b>[space]</b> from the last 8 years. For each: what they built, who funded them, their last public update, and the most credible post-mortem. Then name the one cause that repeats.</pre><p class="why">Graveyards teach faster than unicorns, and nobody reads them.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Build<small>can one person?</small></td>
+          <td class="d">Can this be built solo with today's APIs, and what breaks first?</td>
+          <td class="e"><pre>For <b>[core feature]</b>, list the APIs, models, and libraries that do it today: pricing, rate limits, and the terms-of-service clause that could shut me down. Then name the single dependency I would be most exposed to.</pre><p class="why">You can scaffold a product in an afternoon. This tells you what it would run on, and who could pull the plug.</p></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <span class="n">4 / 8</span>
+    <h2>Before you sell</h2>
+    <p class="sub">Four questions for the part after the demo works.</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Ask the swarm</th><th>Paste this</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="k">Positioning<small>unclaimed slot</small></td>
+          <td class="d">What can I say that nobody else in the category can?</td>
+          <td class="e"><pre>Pull the hero headline and first three claims from the 10 most visited <b>[category]</b> sites. Put them in one table. Mark every claim that all of them make. What is left unclaimed is where I stand.</pre><p class="why">Positioning is subtraction. The table shows you what to subtract.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Pricing<small>existing budget line</small></td>
+          <td class="d">What do they already pay for the thing next to mine?</td>
+          <td class="e"><pre>For <b>[ICP]</b>, list the tools and services they pay for that sit next to <b>[product]</b>: name, price, billing model, and one public complaint about the price. Show me which budget line already exists.</pre><p class="why">You price against a line item that exists, not a number you like.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Distribution<small>channel with proof</small></td>
+          <td class="d">Which channel actually grew a product like mine, with numbers?</td>
+          <td class="e"><pre>Find 5 products with a similar buyer and price to <b>[product]</b> that reached 1,000 paying customers. For each: the first channel that worked, the evidence (founder post, interview, public metric), and whether it kept working. Flag founder-claimed vs third-party numbers.</pre><p class="why">Founder-claimed vs third-party is the flag that makes this usable.</p></td>
+        </tr>
+        <tr>
+          <td class="k">Fundraising<small>who wrote the check</small></td>
+          <td class="d">Who funded this exact category recently, and what did they say about why?</td>
+          <td class="e"><pre>List investors who led pre-seed or seed rounds in <b>[category]</b> in the last 18 months. For each: fund, partner, company, round size if public, and one quote from the partner on why. Skip anyone with no investment in the category in that window.</pre><p class="why">A warm intro to the wrong partner is a cold intro.</p></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <span class="n">5 / 8</span>
+    <h2>Files, not chats</h2>
+    <p class="quote">"It's 2026 and unbelievable power is in an open github repo with a few markdown files."<cite>Garry Tan, X, 2026. His own setup, GBrain, calls the git repo "the system of record": every memory is a markdown file.</cite></p>
+    <p class="sub">A swarm that ends in a chat window is gone tomorrow. A swarm that ends in a file compounds. The pile never stops growing, so the rules below are about keeping the <mark>index</mark> short while the pile gets long.</p>
+    <div class="tree">research/
+&nbsp;&nbsp;INDEX.md                                 <i>one line per brief, the only file you reread</i>
+&nbsp;&nbsp;2026-08-23-who-pays-to-fix-onboarding.md
+&nbsp;&nbsp;2026-08-24-graveyard-speaking-apps.md
+&nbsp;&nbsp;2026-08-24-graveyard-speaking-apps.skeptic.md   <i>optional: the kill list, kept</i>
+&nbsp;&nbsp;2026-09-02-who-pays-to-fix-onboarding.md <i>re-run, supersedes the 08-23 file</i></div>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>Rule</th><th>Do this</th><th>Looks like</th></tr></thead>
+      <tbody>
+        <tr><td class="k">One question, one file</td><td class="d">Name the file by date and question. Never "notes.md".</td><td class="e"><pre>2026-08-23-who-pays-to-fix-onboarding.md</pre></td></tr>
+        <tr><td class="k">Frontmatter carries the verdict</td><td class="d">Question, date, confidence, status, source count. You scan frontmatter, not bodies.</td><td class="e"><pre>---
+question: Who already pays to fix onboarding?
+date: 2026-08-23
+confidence: medium
+status: fresh        # fresh | stale | superseded
+sources: 14
+decision: pursue the agency segment
+---</pre></td></tr>
+        <tr><td class="k">Last section is the gap</td><td class="d">Every brief ends with what it could not check. A brief without gaps is a brief that did not look.</td><td class="e"><pre>## What this cannot tell you
+- No pricing data behind login walls
+- Two claims rest on one founder's thread</pre></td></tr>
+        <tr><td class="k">Re-run, don't rewrite</td><td class="d">When a brief goes stale, ask the same question again. New file, old one marked superseded. History stays.</td><td class="e"><pre>status: superseded
+superseded_by: 2026-09-02-who-pays-to-fix-onboarding.md</pre></td></tr>
+        <tr><td class="k">Decisions go in the file</td><td class="d">When you act on a brief, write the decision into its frontmatter. This is what turns a research pile into a log of what you decided and why.</td><td class="e"><pre>decision: killed the consumer angle, see graveyard brief</pre></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <span class="n">6 / 8</span>
+    <h2>Questions people ask</h2>
+    <div class="qa">
+      <div class="pair"><span class="q">"Do I need to code?"</span><span class="a">No. Claude Code or Codex can spawn the agents for you. Without either, open four chat tabs, give each one sub-question, and paste the answers into one skeptic tab.</span></div>
+      <div class="pair"><span class="q">"How is this different from the deep research button?"</span><span class="a">One agent, one pass, grading itself. A swarm splits the question, lets a second agent attack the answers, and writes to your folder instead of a chat you will never find again.</span></div>
+      <div class="pair"><span class="q">"How many sub-questions?"</span><span class="a">4 to 8. Past 8 the agents start repeating each other.</span></div>
+      <div class="pair"><span class="q">"What if the skeptic drops half the claims?"</span><span class="a">Good. The half that survives is what you act on. The half that died is the list of things you almost believed.</span></div>
+      <div class="pair"><span class="q">"When should I not do this?"</span><span class="a">When the answer is one search away, or when it lives inside a customer's head. Nothing in this page replaces talking to five users.</span></div>
+      <div class="pair"><span class="q">"Can I do this with a full-time job?"</span><span class="a">Yes. Write the question in the morning, read one file at night. The swarm does not need you in the room.</span></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide big">
+    <span class="n">7 / 8</span>
+    <h2>Your first run</h2>
+    <p class="sub">Paste this into Claude Code from any folder. Swap the first line for a question from slides 3 or 4.</p>
+    <pre>Research question: <b>[one question from this page]</b>
+
+1. Split it into 5 sub-questions that, answered together, answer the whole thing. Show me the split before you continue.
+2. For each sub-question, spawn one read-only subagent. Primary sources only: docs, papers, founder posts, filings, forum threads. Return claims as bullets, each with a URL and a direct quote.
+3. Spawn one skeptic subagent. For every claim, try to refute it. Verdict per claim: keep / revise / drop, plus what you checked. You may not skip a claim.
+4. Write research/YYYY-MM-DD-&lt;slug&gt;.md with frontmatter (question, date, confidence, status: fresh, sources), surviving claims with sources, dropped claims with reasons, and a final section "What this cannot tell you".
+5. Append one line to research/INDEX.md: date, question, confidence, file.</pre>
+    <p class="sources" style="margin-top:22px">
+      Inspiration, not a copy: <a href="https://github.com/dmarzzz/research-swarm">dmarzzz/research-swarm</a> (a local-first ReAct harness with a web archive and a citation critic) and <a href="https://github.com/garrytan/gbrain">garrytan/gbrain</a> (markdown pages as the system of record, cron jobs that enrich them overnight). This page keeps the two ideas worth keeping, the skeptic and the file, and drops the harness.
+    </p>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide big">
+    <span class="n">8 / 8</span>
+    <h2>Run it while you're away</h2>
+    <p class="sub">The interesting version of this is not you typing prompts. It is a queue of questions and a cron job that answers <mark>one per night</mark>. You write a question on the train. A file is waiting in the morning.</p>
+    <div class="tree">research/QUEUE.md
+- [ ] Who already pays to fix onboarding for 5-person agencies?
+- [ ] What did the last five voice-coaching apps die of?
+- [ ] Which channel got a $29/mo prosumer tool to 1,000 payers?</div>
+    <pre># scripts/nightly-swarm.sh  (runs one queued question through Claude Code)
+Q=$(grep -m1 '^- \[ \] ' research/QUEUE.md | sed 's/^- \[ \] //')
+[ -z "$Q" ] &amp;&amp; exit 0
+DATE=$(date +%F)
+SLUG=$(echo "$Q" | tr 'A-Z' 'a-z' | sed 's/[^a-z0-9]\{1,\}/-/g; s/^-//; s/-$//' | cut -c1-48)
+PROMPT=$(sed "s|\[one question from this page\]|$Q|; s|YYYY-MM-DD-&lt;slug&gt;|$DATE-$SLUG|" PROMPT.md)
+claude -p "$PROMPT" --permission-mode acceptEdits \
+  --allowedTools "Agent,WebSearch,WebFetch,Read,Write,Edit,Glob,Grep"
+sed -i '' "s|^- \[ \] $Q|- [x] $Q  (research/$DATE-$SLUG.md)|" research/QUEUE.md
+
+# crontab -e
+0 2 * * *  cd ~/founder-research-swarms &amp;&amp; ./scripts/nightly-swarm.sh &gt;&gt; logs/nightly.log 2&gt;&amp;1</pre>
+    <p class="lede" style="margin-top:22px">Three things change when research runs on a schedule. You stop asking questions you can answer in one search, because the queue makes you pick. The pile grows on its own, which is why the index rules on slide 5 matter. And your phone becomes the input: a queue line is a sentence, and a sentence is all the job needs.</p>
+  </section>
+
+</div>
+</body></html>
