@@ -108,9 +108,3 @@ Three things change when research runs on a schedule. You stop asking questions 
 **When should I not do this?** When the answer is one search away, or when it lives inside a customer's head. Nothing here replaces talking to five users.
 
 **Can I do this with a full-time job?** Yes. Write the question in the morning, read one file at night. The swarm does not need you in the room.
-
-## Inspiration, not a copy
-
-[dmarzzz/research-swarm](https://github.com/dmarzzz/research-swarm) (a local-first ReAct harness with a web archive and a citation critic) and [garrytan/gbrain](https://github.com/garrytan/gbrain) (markdown pages as the system of record, cron jobs that enrich them overnight). This repo keeps the two ideas worth keeping, the skeptic and the file, and drops the harness.
-
-MIT.
