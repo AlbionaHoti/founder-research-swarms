@@ -22,7 +22,8 @@ DATE="$(date +%F)"
 SLUG="$(printf '%s' "$Q" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]\{1,\}/-/g; s/^-//; s/-$//' | cut -c1-48)"
 OUT="research/$DATE-$SLUG.md"
 
-PROMPT="$(sed "s|\[one question from this page\]|$Q|; s|YYYY-MM-DD-<slug>|$DATE-$SLUG|" PROMPT.md)"
+PROMPT_FILE="${PROMPT_FILE:-PROMPT.md}"   # set PROMPT_FILE=PROMPT-DEEP.md for the deep method
+PROMPT="$(sed "s|\[one question from this page\]|$Q|; s|\[one question; see README for the eight worth asking\]|$Q|; s|YYYY-MM-DD-<slug>|$DATE-$SLUG|g" "$PROMPT_FILE")"
 
 echo "$(date '+%F %T') start: $Q"
 claude -p "$PROMPT" \
