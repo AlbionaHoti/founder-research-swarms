@@ -95,6 +95,18 @@ The interesting version of this is not you typing prompts. It is a queue of ques
 
 Three things change when research runs on a schedule. You stop asking questions you can answer in one search, because the queue makes you pick. The pile grows on its own, which is why the index rules matter. And your phone becomes the input: a queue line is a sentence, and a sentence is all the job needs.
 
+## Going deeper
+
+The one-prompt method above is enough for most questions. When being wrong is expensive, there is a heavier version with the same four moves and stricter contracts:
+
+- `PROMPT-DEEP.md`: paste-ready. Adds an effort table (1, 2 to 4, or 5 to 8 researchers by question type), a JSON claim contract with period, geography, platform and date on every number, a `dead_ends` list so "nobody does this" carries the queries tried, a mechanical link check before any skeptic runs, question-typed evaluators (definitive, freshness, plurality, completeness, strict), a synthesizer with no web tools, and a citation pass that marks any sentence with no claim behind it.
+- `docs/METHOD.md`: the full skeleton. Principles, roles, stages, contracts, decision gates, a freshness table by claim type, the run folder, a close-out checklist, and the failure modes each rule exists to stop.
+- `docs/INSPIRATIONS.md`: the open-source deep-research systems this borrows from, with stars, dates, and the one mechanism taken from each.
+- `scripts/linkcheck.py` and `scripts/archive.py`: the two mechanical steps. HEAD-check every source URL, and save every fetched page into `knowledge/` so the next run starts local.
+- `research/TEMPLATE-DEEP.md`: frontmatter that carries the outcome line (researchers, skeptics, claims kept, revised, dropped, grounding score).
+
+Run it on a schedule with `PROMPT_FILE=PROMPT-DEEP.md ./scripts/nightly-swarm.sh`.
+
 ## Questions people ask
 
 **Do I need to code?** No. Claude Code or Codex can spawn the agents for you. Without either, four chat tabs and one skeptic tab.
